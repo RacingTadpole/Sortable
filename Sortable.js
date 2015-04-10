@@ -626,6 +626,19 @@
 			var el = this.el,
 				options = this.options;
 
+			// console.log('_onDrop:', 
+			// 	dragEl,
+			// 	ghostEl,
+			// 	cloneEl,
+			// 	rootEl,
+			// 	nextEl,
+			// 	scrollEl,
+			// 	scrollParentEl,
+			// 	lastEl
+			// )
+
+			// only lastEl and scrollParentEl contain the element on which the drop happened
+
 			clearInterval(this._loopId);
 			clearInterval(autoScroll.pid);
 
@@ -656,7 +669,16 @@
 						_dispatchEvent(rootEl, 'sort', dragEl, rootEl, oldIndex, newIndex);
 
 						// Add event
-						_dispatchEvent(dragEl, 'add', dragEl, rootEl, oldIndex, newIndex);
+						///////////////////
+						// art modified
+						///////////////////
+						// rubaxa's version is:
+						// _dispatchEvent(dragEl, 'add', dragEl, rootEl, oldIndex, newIndex);
+						///////////////////
+						// art's version passes the element DROPPED UPON (lastEl) through as event.item
+						// and the DRAGGED element as FROM (not the rootEl, which is its parent I think)
+						///////////////////
+						_dispatchEvent(dragEl, 'add', lastEl, dragEl, oldIndex, newIndex);
 
 						// Remove event
 						_dispatchEvent(rootEl, 'remove', dragEl, rootEl, oldIndex, newIndex);
