@@ -288,7 +288,10 @@
 			if (typeof filter === 'function') {
 				if (filter.call(this, evt, target, this)) {
 					_dispatchEvent(originalTarget, 'filter', target, el, oldIndex);
-					evt.preventDefault();
+					///////////////////
+					// art modified - evt.preventDefault stops iPad touch working, so comment out
+					///////////////////
+					// evt.preventDefault();
 					return; // cancel dnd
 				}
 			}
@@ -303,7 +306,10 @@
 				});
 
 				if (filter) {
-					evt.preventDefault();
+					///////////////////
+					// art modified - evt.preventDefault stops iPad touch working, so comment out
+					///////////////////
+					// evt.preventDefault();
 					return; // cancel dnd
 				}
 			}
@@ -339,7 +345,10 @@
 					};
 
 					this._onDragStart(tapEvt, 'touch');
-					evt.preventDefault();
+					///////////////////
+					// art modified - evt.preventDefault stops iPad touch working, so comment out
+					///////////////////
+					// evt.preventDefault();
 				}
 
 				_on(document, 'mouseup', this._onDrop);
