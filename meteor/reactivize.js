@@ -92,6 +92,16 @@ Template.sortable.created = function () {
 		var orderField = templateInstance.options.sortField;
 		var selector = {}, modifier = {$set: {}};
 		var ids = [];
+		//
+		//  art: if there are nested sortables in groups, it tries to do this on both groups
+		//  my solution is to require the group be given the name of the collection of the draggables
+		//  and check it here
+		//  TODO: this refers to _name - may not be supported in future versions
+		//
+		if (this.options.group.name !== templateInstance.collection._name) {
+			return;
+		}
+		//console.log(itemId, this.options.group, templateInstance.collection, templateInstance.collection.findOne(itemId));
 		var startOrder = templateInstance.collection.findOne(itemId)[orderField];
 		if (orderPrevItem !== null) {
 			// Element has a previous sibling, therefore it was moved down in the list.
