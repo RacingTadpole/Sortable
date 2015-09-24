@@ -10,6 +10,11 @@ Meteor.methods({
 	 */
 	'rubaxa:sortable/collection-update': function (collectionName, ids, orderField, incDec) {
 		check(collectionName, String);
+		// next three lines added by AGS for extra security
+		// note this still allows non-editors to sort the rosters and roster sets, which is bad
+		if (!(collectionName === 'rosters' || collectionName === 'roster_sets')) {
+			throw new Meteor.Error(404, "You are trying to sort an unsortable collection");
+		}
 		check(ids, [String]);
 		check(orderField, String);
 		check(incDec, Number);

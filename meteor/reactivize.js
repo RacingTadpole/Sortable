@@ -98,11 +98,15 @@ Template.sortable.created = function () {
 		//  and check it here
 		//  TODO: this refers to _name - may not be supported in future versions
 		//
+		// console.log('[Sortable adjustOrders] group.name, _name:', this.options.group.name, templateInstance.collection._name);
 		if (this.options.group.name !== templateInstance.collection._name) {
 			return;
 		}
-		//console.log(itemId, this.options.group, templateInstance.collection, templateInstance.collection.findOne(itemId));
-		var startOrder = templateInstance.collection.findOne(itemId)[orderField];
+		// console.log('[Sortable adjustOrders] itemId, group, collection, item:', itemId, this.options.group, templateInstance.collection, templateInstance.collection.findOne(itemId));
+		var item = templateInstance.collection.findOne(itemId);
+		if (!item) { return; }  // TODO: this can happen if you have two nested sortable groups
+		var startOrder = item[orderField];
+		// console.log('[Sortable adjustOrders] startOrder, orderPrevItem:', startOrder, orderPrevItem);
 		if (orderPrevItem !== null) {
 			// Element has a previous sibling, therefore it was moved down in the list.
 			// Decrease the order of intervening elements.
